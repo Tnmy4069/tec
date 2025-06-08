@@ -3,71 +3,112 @@
 export default function Background() {
   return (
     <>
-      {/* Animated Background */}
+      {/* Epic Animated Space Background */}
       <div className="fixed inset-0 z-0">
+        {/* Deep Space Image Layer */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-          style={{
-            backgroundImage: "url('/space-bg.jpg')",
-          }}
+          className="absolute inset-0 bg-no-repeat bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('/space-bg.jpg')" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-blue-900/20" />
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-indigo-900/40 to-blue-900/40" />
+
+        {/* Twinkling Stars */}
         <div className="stars absolute inset-0" />
+
+        {/* Nebula Mist */}
+        <div className="nebula absolute inset-0" />
+
+        {/* Shooting Stars */}
+        <div className="shooting-stars absolute inset-0 pointer-events-none" />
+
+        {/* Floating Cosmic Particles */}
         <div className="floating-particles absolute inset-0" />
       </div>
 
       <style jsx>{`
         .stars {
-          background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg%3E%3Cpolygon fill='%23001122' fillOpacity='0.4' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3Cpolygon fill='%23220044' fillOpacity='0.3' points='25 10 30 25 45 30 30 35 25 50 20 35 5 30 20 25'/%3E%3Cpolygon fill='%23002244' fillOpacity='0.5' points='75 20 80 35 95 40 80 45 75 60 70 45 55 40 70 35'/%3E%3Cpolygon fill='%23440022' fillOpacity='0.2' points='15 70 20 85 35 90 20 95 15 110 10 95 -5 90 10 85'/%3E%3Cpolygon fill='%23004422' fillOpacity='0.3' points='85 75 90 90 105 95 90 100 85 115 80 100 65 95 80 90'/%3E%3C/g%3E%3C/svg%3E") repeat;
-          animation: sparkle 30s linear infinite;
+          background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+          animation: twinkle 60s linear infinite;
         }
-        
+
+        .nebula::before {
+          content: '';
+          position: absolute;
+          top: -30%;
+          left: -30%;
+          width: 160%;
+          height: 160%;
+          background: radial-gradient(circle at center, rgba(255, 0, 255, 0.08), transparent 60%),
+                      radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.05), transparent 70%),
+                      radial-gradient(circle at 80% 80%, rgba(255, 255, 0, 0.05), transparent 70%);
+          animation: nebulaMove 50s ease-in-out infinite;
+        }
+
+        .shooting-stars::before {
+          content: '';
+          position: absolute;
+          width: 2px;
+          height: 100px;
+          top: -10%;
+          left: 50%;
+          background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0));
+          transform: rotate(45deg);
+          animation: shooting 6s ease-in-out infinite;
+        }
+
         .floating-particles::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 200%;
-          height: 200%;
-          background: 
-            linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.03) 50%, transparent 70%),
-            linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.03) 50%, transparent 70%),
-            linear-gradient(90deg, transparent 30%, rgba(16, 185, 129, 0.02) 50%, transparent 70%);
-          background-size: 400px 400px, 350px 350px, 300px 300px;
-          animation: gradientMove 20s ease-in-out infinite, gradientShift 15s ease-in-out infinite reverse;
-          opacity: 0.8;
+          width: 300%;
+          height: 300%;
+          background:
+            linear-gradient(60deg, transparent 30%, rgba(139, 92, 246, 0.05) 50%, transparent 70%),
+            linear-gradient(120deg, transparent 30%, rgba(16, 185, 129, 0.03) 50%, transparent 70%);
+          background-size: 500px 500px, 400px 400px;
+          animation: floatShift 40s ease-in-out infinite, rotateBG 60s linear infinite;
+          opacity: 0.6;
         }
-        
-        @keyframes sparkle {
-          from { transform: translateY(0px); }
-          to { transform: translateY(-100px); }
+
+        @keyframes twinkle {
+          0% { background-position: 0 0; }
+          100% { background-position: 100% 100%; }
         }
-        
-        @keyframes gradientMove {
-          0%, 100% { 
-            transform: translateX(-50%) translateY(-50%) rotate(0deg);
+
+        @keyframes nebulaMove {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.2); }
+        }
+
+        @keyframes shooting {
+          0% {
+            top: -10%;
+            left: 60%;
+            opacity: 0;
           }
-          25% { 
-            transform: translateX(-45%) translateY(-55%) rotate(90deg);
+          10% {
+            opacity: 1;
           }
-          50% { 
-            transform: translateX(-55%) translateY(-45%) rotate(180deg);
-          }
-          75% { 
-            transform: translateX(-50%) translateY(-50%) rotate(270deg);
+          100% {
+            top: 120%;
+            left: 40%;
+            opacity: 0;
           }
         }
-        
-        @keyframes gradientShift {
-          0%, 100% { 
-            background-position: 0% 0%, 100% 100%, 50% 50%;
+
+        @keyframes floatShift {
+          0%, 100% {
+            background-position: 0% 0%, 100% 100%;
           }
-          33% { 
-            background-position: 100% 0%, 0% 100%, 0% 50%;
+          50% {
+            background-position: 100% 0%, 0% 100%;
           }
-          66% { 
-            background-position: 50% 100%, 50% 0%, 100% 0%;
-          }
+        }
+
+        @keyframes rotateBG {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
       `}</style>
     </>
